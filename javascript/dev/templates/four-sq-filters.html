@@ -1,5 +1,5 @@
-<div ng-repeat="item in shared.data">
-  <label class="checkbox-inline">
-  <input type="checkbox" ng-model="item.isChecked" ng-change="updateTypes(item.type)"/>
-  <span>{{ item.type }}</span>
+<div class="radio-inline" ng-repeat="item in shared.data">
+  <label >
+  <input type="radio" ng-model="$parent.sectionType" name="type" ng-value="item.type"/>
+  <span class="text-capitalize">{{ item.type }}</span>
 </div>

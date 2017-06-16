@@ -2,11 +2,16 @@ module.exports = function(){
   angular.module('FourSquareApp').factory('filterCheckList', function() {
     let filterCheckList = {
       data: [
-        {type: 'food', isChecked: false},
-        {type: 'drinks', isChecked: false},
-        {type: 'coffee', isChecked: false}
-      ],
-      checkedValues: []
+        {type: 'food'},
+        {type: 'drinks'},
+        {type: 'shops'},
+        {type: 'arts'},
+        {type: 'outdoors'},
+        {type: 'sights'},
+        {type: 'trending'},
+        {type: 'specials'}
+
+      ]
     };
     return filterCheckList;
   });
