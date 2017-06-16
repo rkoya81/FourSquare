@@ -1,7 +1,7 @@
 module.exports = function(){
   angular.module('FourSquareApp').controller('FourSquareCtrl',
-  ['$scope', 'FourSquareAppService', 'filterCheckList',
-  function($scope, FourSquareAppService, filterCheckList) {
+  ['$scope', '$location', 'FourSquareAppService', 'filterCheckList', 'placeDetails',
+  function($scope, $location, FourSquareAppService, filterCheckList, placeDetails) {
     $scope.results = 'ResultsFound';
     $scope.loader = 'Loaded';
     $scope.showFilters = false;
@@ -18,6 +18,7 @@ module.exports = function(){
     }
 
     $scope.serviceCall = function() {
+      $scope.places = '';
       $scope.loader = 'Loading';
       const options = {
         client_id: '30GZZNZPS1SU1Z5PWSSGTR5KCZAQJRWSIZEDDSVT0DYSDSNN',
@@ -32,6 +33,11 @@ module.exports = function(){
     }
 
     $scope.getPlacesSuccess = function(response) {
+
+      if (typeof(Storage) !== "undefined") {
+        sessionStorage.setItem("places", JSON.stringify(response));
+      }
+
       if(response.data && response.data.response.totalResults > 0) {
         $scope.loader = 'Loaded';
         const { items } = response.data.response.groups[0];
@@ -42,11 +48,18 @@ module.exports = function(){
         }
 
         $scope.places = places;
+
       } else {
         $scope.loader = 'Loaded';
         $scope.results = 'noResultsFound';
       }
     };
+
+    function displayStoredResults() {
+      if (sessionStorage.getItem("places") !== null) {
+        $scope.getPlacesSuccess(JSON.parse(sessionStorage.getItem('places')));
+      }
+    }
 
     $scope.getPlacesError = function() {
       console.log('Something went wrong');
@@ -78,11 +91,19 @@ module.exports = function(){
         photos: (photos.groups[0]) ? photos.groups[0].items[0].prefix + '128x128' + photos.groups[0].items[0].suffix : '',
         locationType: categories[0].name,
         priceSymbol,
-        ratingSignals
+        ratingSignals,
+        lat: location.lat,
+        lng: location.lng
       }
 
       return dataValues;
     }
 
+    $scope.viewDetails = function() {
+      $location.url('details');
+      placeDetails.setJSON(this.place);
+    }
+    
+    displayStoredResults();
   }]);
 };

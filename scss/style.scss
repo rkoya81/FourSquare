@@ -113,7 +113,7 @@
 
   .list-group {
     margin-top: 20px;
-    
+
     .row {
       padding: 0 10px;
     }
@@ -133,4 +133,10 @@
       display: block;
     }
   }
+}
+
+#map {
+  margin: 10px 0;
+  height: 420px;
+  width: 600px;
 }

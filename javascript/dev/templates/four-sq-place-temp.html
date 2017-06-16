@@ -1,5 +1,5 @@
 <ul class="list-group" ng-repeat="place in places">
-  <li class="list-group-item">
+  <li class="list-group-item" ng-click="viewDetails()">
     <div class="row">
       <div class="img-width">
         <img ng-src="{{ place.photos }}" alt="{{ place.name }}" title="{{ place.name }}" />
