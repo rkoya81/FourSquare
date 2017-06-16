@@ -44,14 +44,23 @@ gulp.task('bundle-script', function() {
   .pipe(gulp.dest('javascript/min'))
 });
 
+gulp.task('babel', () => {
+  return gulp.src('javascript/min/script.min.js')
+    .pipe(babel({
+        presets: ['es2015']
+    }))
+    .pipe(gulp.dest('javascript/min'));
+});
+
 
 
 /*
   Task to watch for changes
 */
-gulp.task('watch', ['browserSync','bundle', 'bundle-script'], function(){
+gulp.task('watch', ['browserSync','bundle', 'bundle-script', 'babel'], function(){
   gulp.watch('javascript/dev/**/*.js', ['bundle']);
   gulp.watch('javascript/dev/**/*.js', ['bundle-script']);
+  gulp.watch('javascript/dev/**/*.js', ['babel']);
   gulp.watch('*.html', browserSync.reload);
   gulp.watch('pages/**/*.html', browserSync.reload);
   gulp.watch('javascript/dev/**/*.js', browserSync.reload);

@@ -1,7 +1,7 @@
 module.exports = function(){
   angular.module('FourSquareApp').factory('FourSquareAppService', ['$http', function($http) {
 
-    var generalHandler = function(response, processHandler){
+    const generalHandler = function(response, processHandler){
       if(response.status === 200 && !jsonResponseIsValid(response.data)){
         console.log("something went wrong with data return");
         return;
@@ -9,9 +9,9 @@ module.exports = function(){
       processHandler(response);
     };
 
-    var jsonResponseIsValid = function(theData){
-      var isValid = true;
-      var json;
+    const jsonResponseIsValid = function(theData){
+      let isValid = true;
+      let json;
 
       if (typeof(theData) !== 'object') {
         try {
@@ -23,7 +23,7 @@ module.exports = function(){
       return isValid;
     };
 
-    var getServiceParamaters = function(theProcess){
+    const getServiceParameters = function(theProcess){
       switch (theProcess) {
         case "getPlaces":
           return {
@@ -35,10 +35,10 @@ module.exports = function(){
 
     return {
       callFourSquareService: function (process, options, success, error) {
-        var serviceParamaters = getServiceParamaters(process);
+        const serviceParameters = getServiceParameters(process);
         return $http({
-          url: serviceParamaters.url,
-          method: serviceParamaters.method,
+          url: serviceParameters.url,
+          method: serviceParameters.method,
           params: options
         })
         .then(
