@@ -1,0 +1,18 @@
+<ul class="list-group" ng-repeat="place in places">
+  <li class="list-group-item">
+    <div class="row">
+      <div class="img-width">
+        <img ng-src="{{ place.photos }}" alt="{{ place.name }}" title="{{ place.name }}" />
+      </div>
+      <div class="col-xs-6 col-md-9 row-no-padding">
+        <h5>{{ place.name }}</h5>
+        <small>{{ place.location }}</small>
+        <small class="reviews">{{ place.rating }}/10 - {{ place.ratingSignals }} reviews</small>
+        <small class="location-type">{{ place.locationType }}</small>
+      </div>
+      <div class="col-xs-2 col-md-1 row-no-padding">
+        <span class="price">{{ place.priceSymbol }}</span>
+      </div>
+    </div>
+  </li>
+</ul>

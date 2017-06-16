@@ -1,0 +1,17 @@
+.list-group {
+  .price {
+    display: inline-block;
+    margin: 8px 0;
+  }
+  .img-width {
+    width: 128px;
+    float: left;
+  }
+  .row-no-padding {
+    padding-right: 0 !important;
+  }
+  small {
+    width: 100%;
+    display: block;
+  }
+}

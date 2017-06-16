@@ -1,4 +1,5 @@
 .DS_Store
 node_modules
-css/min
+css/**/*.css
 javascript/min
+javascript/dev/combined-app.js

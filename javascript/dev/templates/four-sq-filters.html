@@ -1,0 +1,5 @@
+<div ng-repeat="item in shared.data">
+  <label class="checkbox-inline">
+  <input type="checkbox" ng-model="item.isChecked" ng-change="updateTypes(item.type)"/>
+  <span>{{ item.type }}</span>
+</div>

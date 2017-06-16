@@ -1,8 +1,9 @@
 module.exports = function(){
   angular.module('FourSquareApp').controller('FourSquareCtrl',
-  ['$scope', 'FourSquareAppService',
-  function($scope, FourSquareAppService) {
+  ['$scope', 'FourSquareAppService', 'filterCheckList',
+  function($scope, FourSquareAppService, filterCheckList) {
     $scope.locationString = '';
+    $scope.shared = filterCheckList;
 
     $scope.serviceCall = function() {
       const options = {
@@ -10,7 +11,8 @@ module.exports = function(){
         client_secret: 'WUJRMM100H5E2Q12TMDQSYKMMZH4TLGB5FYAQZLO5QWK2FJQ',
         v: '20170612',
         near: $scope.locationString,
-        venuePhotos: 1
+        venuePhotos: 1,
+        section: $scope.shared.checkedValues.join(',')
       };
 
       FourSquareAppService.callFourSquareService('getPlaces', options, $scope.getPlacesSuccess, $scope.getPlacesError);
@@ -19,18 +21,14 @@ module.exports = function(){
     $scope.getPlacesSuccess = function(response) {
       if(response.data) {
         const { items } = response.data.response.groups[0];
-
         let places = [];
 
         for (let item of items) {
           places.push($scope.parseData(item))
-
         }
 
         $scope.places = places;
-
       }
-
     };
 
     $scope.getPlacesError = function(response) {
@@ -54,13 +52,12 @@ module.exports = function(){
         priceSymbol = '';
       }
 
-
       const dataValues = {
         name,
         location: location.formattedAddress[0] + ', ' + location.formattedAddress[1],
         rating,
         photos: (photos.groups[0]) ? photos.groups[0].items[0].prefix + '128x128' + photos.groups[0].items[0].suffix : '',
-        restaurantType: categories[0].name,
+        locationType: categories[0].name,
         priceSymbol,
         ratingSignals
       }
